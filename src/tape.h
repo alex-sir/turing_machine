@@ -28,8 +28,8 @@ public:
   void view() const;
   void initialize(string input_string);
   void update(char write_character, direction move_direction);
-  void left(int maximum_number_of_cells) const;
-  void right(int maximum_number_of_cells) const;
+  string left(int maximum_number_of_cells) const;
+  string right(int maximum_number_of_cells) const;
   char current_character() const;
   bool is_first_cell() const;
 };
