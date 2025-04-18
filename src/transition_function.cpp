@@ -1,15 +1,15 @@
 /**
  *  Alex Carbajal
  *  CPT_S 322, Spring 2025
- *  Turing Machine Implementation
+ *  Turing Machine
  */
 
-#include "transition_function.h"
-#include "direction.h"
-#include "final_states.h"
-#include "states.h"
-#include "tape_alphabet.h"
-#include "transition.h"
+#include "../include/transition_function.h"
+#include "../include/direction.h"
+#include "../include/final_states.h"
+#include "../include/states.h"
+#include "../include/tape_alphabet.h"
+#include "../include/transition.h"
 #include <fstream>
 #include <iostream>
 #include <string>

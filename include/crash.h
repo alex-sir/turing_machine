@@ -1,3 +1,9 @@
+/**
+ *  Alex Carbajal
+ *  CPT_S 322, Spring 2025
+ *  Turing Machine
+ */
+
 #ifndef CRASH_H
 #define CRASH_H
 

@@ -1,14 +1,14 @@
 /**
  *  Alex Carbajal
  *  CPT_S 322, Spring 2025
- *  Turing Machine Implementation
+ *  Turing Machine
  */
 
-#include "tape.h"
-#include "crash.h"
-#include "direction.h"
-#include "input_alphabet.h"
-#include "tape_alphabet.h"
+#include "../include/tape.h"
+#include "../include/crash.h"
+#include "../include/direction.h"
+#include "../include/input_alphabet.h"
+#include "../include/tape_alphabet.h"
 // #include "uppercase.h" // contains a custom function to convert a string to
 // all uppercase
 #include <algorithm>

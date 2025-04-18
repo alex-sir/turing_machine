@@ -1,28 +1,31 @@
 # Alex Carbajal
 # CPT_S 322, Spring 2025
-# Turing Machine Implementation
+# Turing Machine
 
 # Compiler
 CXX = g++
-
-# Setting the flags
-CXXFLAGS = -g -Wall
-
-# Link in support for debugging
+# Compiler flags
+CXXFLAGS = -Wall -Wextra
+# Debugging flag
 LDFLAGS = -g
 
-# Name of executable
+# Directory names
+SRC_DIR = src
+BUILD_DIR = build
+# Executable name
 BIN = tm
 
-# Name of object files
-OBJS = src/tm.o src/utilities.o src/commands.o
+# Source & object files
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+OBJS = $(patsubst %.cpp,$(BUILD_DIR)/%.o,$(notdir $(SRCS)))
 
 # Default target produced by entering "make" alone
 .PHONY: default
 default: $(BIN)
 
 # Compile *.cpp into *.o
-src/%.o: src/%.cpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Link *.o files into an executable
@@ -32,7 +35,7 @@ $(BIN): $(OBJS)
 # Remove *.o files, but leave executable
 .PHONY: clean
 clean:
-	rm -f core* src/*.o *~
+	rm -rf $(BUILD_DIR)
 
 # Remove all files that can be reconstructed through "make"
 .PHONY: immaculate

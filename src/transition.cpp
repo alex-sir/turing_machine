@@ -1,11 +1,11 @@
 /**
  *  Alex Carbajal
  *  CPT_S 322, Spring 2025
- *  Turing Machine Implementation
+ *  Turing Machine
  */
 
-#include "transition.h"
-#include "direction.h"
+#include "../include/transition.h"
+#include "../include/direction.h"
 #include <string>
 using namespace std;
 

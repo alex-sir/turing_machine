@@ -1,7 +1,7 @@
 /**
  *  Alex Carbajal
  *  CPT_S 322, Spring 2025
- *  Turing Machine Implementation
+ *  Turing Machine
  */
 
 #ifndef FINAL_STATES_H

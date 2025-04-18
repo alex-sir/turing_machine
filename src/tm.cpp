@@ -1,11 +1,11 @@
 /**
  *  Alex Carbajal
  *  CPT_S 322, Spring 2025
- *  Turing Machine Implementation
+ *  Turing Machine
  */
 
-#include "commands.h"
-#include "utilities.h"
+#include "../include/commands.h"
+#include "../include/utilities.h"
 #include <iostream>
 #include <string>
 using namespace std;
