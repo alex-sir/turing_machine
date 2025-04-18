@@ -7,6 +7,7 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include "turing_machine.h"
 #include <string>
 using namespace std;
 
@@ -15,7 +16,12 @@ using namespace std;
 #define RM_UL "\033[24m" // Remove underline
 
 class Commands {
+private:
+  Turing_Machine turing_machine;
+  string filename;
+
 public:
+  Commands(string new_filename);
   /**
    * @brief Run the delete command 'd'
    *        User selects a string to delete from the list
@@ -73,10 +79,6 @@ public:
    *        Display Turing machine description
    */
   void view(void);
-  /**
-   * @brief Display a message after user inputs an invalid command
-   */
-  void invalid_command(void);
 };
 
 #endif

@@ -5,9 +5,13 @@
  */
 
 #include "../include/commands.h"
+#include "../include/turing_machine.h"
 #include <iomanip>
 #include <iostream>
 using namespace std;
+
+Commands::Commands(string new_filename)
+    : turing_machine(new_filename), filename(new_filename) {}
 
 void Commands::del(void) {
   cout << "\nInput String Number: 1\n"
@@ -123,8 +127,4 @@ void Commands::view(void) {
        << "B = -\n\n"
        << "F = {s4}\n"
        << endl;
-}
-
-void Commands::invalid_command(void) {
-  cout << "\nInvalid command. Enter 'h' for help.\n" << endl;
 }

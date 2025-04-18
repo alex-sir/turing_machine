@@ -6,20 +6,24 @@
 
 #include "../include/commands.h"
 #include "../include/utilities.h"
+#include <cstdlib>
 #include <iostream>
 #include <string>
 using namespace std;
 
+// cout << "anbn successfully loaded!\n" << endl;
 int main(int argc, char *argv[]) {
-  cout << "anbn successfully loaded!\n" << endl;
+  Utilities utilities;
+  if (!utilities.is_valid_arguments(argc))
+    return EXIT_FAILURE;
 
-  Commands commands;
+  Commands commands(argv[1]);
   string command = "";
   bool valid_command = false;
   bool exit = false;
   while (!exit) {
     cout << "Command: ";
-    valid_command = is_valid_command(command);
+    valid_command = utilities.is_valid_command(command);
     if (valid_command && command.length() <= 1) {
       switch (tolower(command[0])) {
       case 'd': // Delete
@@ -59,13 +63,13 @@ int main(int argc, char *argv[]) {
       case '\0': // Empty response is ignored
         break;
       default: // Command does not exist
-        commands.invalid_command();
+        utilities.invalid_command();
         break;
       }
     } else {
-      commands.invalid_command();
+      utilities.invalid_command();
     }
   }
 
-  return 0;
+  return EXIT_SUCCESS;
 }

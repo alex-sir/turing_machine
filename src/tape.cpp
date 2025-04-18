@@ -17,7 +17,7 @@
 #include <string>
 using namespace std;
 
-Tape::Tape() : cells(" "), current_cell(0), blank_character(' ') {}
+Tape::Tape() : cells(""), current_cell(0), blank_character('\0') {}
 
 void Tape::load(ifstream &definition, bool &valid) {
   string value;

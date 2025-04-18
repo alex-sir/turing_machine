@@ -5,3 +5,5 @@
  */
 
 #include "../include/turing_machine.h"
+
+Turing_Machine::Turing_Machine(string definition_file_name) {}
