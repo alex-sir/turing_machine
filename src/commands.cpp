@@ -10,8 +10,8 @@
 #include <iostream>
 using namespace std;
 
-Commands::Commands(string new_filename)
-    : turing_machine(new_filename), filename(new_filename) {}
+Commands::Commands(string new_file_name)
+    : turing_machine(new_file_name), input_strings(new_file_name) {}
 
 void Commands::del(void) {
   cout << "\nInput String Number: 1\n"
@@ -59,13 +59,7 @@ void Commands::insert(void) {
        << endl;
 }
 
-void Commands::list(void) {
-  cout << "\n1. aa\n"
-       << "2. aabb\n"
-       << "3. \\\n"
-       << "4. abab\n"
-       << endl;
-}
+void Commands::list(void) { input_strings.view(); }
 
 void Commands::quit(void) {
   cout << "\nInput string abab is not accepted or rejected in 20 transitions.\n"
@@ -108,23 +102,24 @@ void Commands::truncate(void) {
 }
 
 void Commands::view(void) {
-  cout << "\nThis Turing machine accepts the language of one or more A's "
-          "followed by the same number of B's.\n\n"
-       << "Q = {s0, s1, s2, s3, s4}\n\n"
-       << "Σ = {a, b}\n\n"
-       << "Γ = {a, b, X, Y, -}\n\n"
-       << "δ(s0, a) = (s1, X, R)\n"
-       << "δ(s0, Y) = (s3, Y, R)\n"
-       << "δ(s1, a) = (s1, a, R)\n"
-       << "δ(s1, b) = (s2, Y, L)\n"
-       << "δ(s1, Y) = (s1, Y, R)\n"
-       << "δ(s2, a) = (s2, a, L)\n"
-       << "δ(s2, X) = (s0, X, R)\n"
-       << "δ(s2, Y) = (s2, Y, L)\n"
-       << "δ(s3, Y) = (s3, Y, R)\n"
-       << "δ(s3, -) = (s4, -, R)\n\n"
-       << "q0 = s0\n\n"
-       << "B = -\n\n"
-       << "F = {s4}\n"
-       << endl;
+  // cout << "\nThis Turing machine accepts the language of one or more A's "
+  //         "followed by the same number of B's.\n\n"
+  //      << "Q = {s0, s1, s2, s3, s4}\n\n"
+  //      << "Σ = {a, b}\n\n"
+  //      << "Γ = {a, b, X, Y, -}\n\n"
+  //      << "δ(s0, a) = (s1, X, R)\n"
+  //      << "δ(s0, Y) = (s3, Y, R)\n"
+  //      << "δ(s1, a) = (s1, a, R)\n"
+  //      << "δ(s1, b) = (s2, Y, L)\n"
+  //      << "δ(s1, Y) = (s1, Y, R)\n"
+  //      << "δ(s2, a) = (s2, a, L)\n"
+  //      << "δ(s2, X) = (s0, X, R)\n"
+  //      << "δ(s2, Y) = (s2, Y, L)\n"
+  //      << "δ(s3, Y) = (s3, Y, R)\n"
+  //      << "δ(s3, -) = (s4, -, R)\n\n"
+  //      << "q0 = s0\n\n"
+  //      << "B = -\n\n"
+  //      << "F = {s4}\n"
+  //      << endl;
+  turing_machine.view_definition();
 }

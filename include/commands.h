@@ -7,6 +7,8 @@
 #ifndef COMMANDS_H
 #define COMMANDS_H
 
+#include "configuration_settings.h"
+#include "input_strings.h"
 #include "turing_machine.h"
 #include <string>
 using namespace std;
@@ -18,10 +20,11 @@ using namespace std;
 class Commands {
 private:
   Turing_Machine turing_machine;
-  string filename;
+  Input_Strings input_strings;
+  Configuration_Settings configuration_settings;
 
 public:
-  Commands(string new_filename);
+  Commands(string new_file_name);
   /**
    * @brief Run the delete command 'd'
    *        User selects a string to delete from the list

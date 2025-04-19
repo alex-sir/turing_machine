@@ -13,12 +13,32 @@
 #include "tape.h"
 #include "tape_alphabet.h"
 #include "transition_function.h"
+#include "utilities.h"
 #include <string>
 #include <vector>
 using namespace std;
 
+// Keywords that MUST appear in this order in a Turing machine definition file
+#define STATES "STATES:"
+#define INPUT_ALPHABET "INPUT_ALPHABET:"
+#define TAPE_ALPHABET "TAPE_ALPHABET:"
+#define TRANSITION_FUNCTION "TRANSITION_FUNCTION:"
+#define INITIAL_STATE "INITIAL_STATE:"
+#define BLANK_CHARACTER "BLANK_CHARACTER:"
+#define FINAL_STATES "FINAL_STATES:"
+
+// Lengths of the keywords
+#define STATES_LENGTH 7
+#define INPUT_ALPHABET_LENGTH 15
+#define TAPE_ALPHABET_LENGTH 14
+#define TRANSITION_FUNCTION_LENGTH 20
+#define INITIAL_STATE_LENGTH 14
+#define BLANK_CHARACTER_LENGTH 16
+#define FINAL_STATES_LENGTH 13
+
 class Turing_Machine {
 private:
+  Utilities utilities;
   Tape tape;
   Input_Alphabet input_alphabet;
   Tape_Alphabet tape_alphabet;
