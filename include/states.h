@@ -14,7 +14,7 @@ using namespace std;
 
 class States {
 private:
-  vector<string> names;
+  vector<string> names = {};
 
 public:
   /**
@@ -26,15 +26,16 @@ public:
    */
   void load(ifstream &definition, bool &valid);
   /**
-   * @brief Display the set of all states of the Turing machine
+   * @brief Display the states of the Turing machine
    */
   void view(void) const;
   /**
-   * @brief Check if a state is a duplicate
+   * @brief Check if a value is a duplicate in the set of states
    *
-   * @param value String of the state to check for duplicity
-   * @return bool true if the state is a duplicate
-   *              false if the state is not a duplicate
+   * @param value String of the value to check for duplicity in the set of
+   *              states
+   * @return bool true if the value is a duplicate
+   *              false if the value is not a duplicate
    */
   bool is_element(string value);
 };

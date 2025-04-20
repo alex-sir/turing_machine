@@ -34,18 +34,19 @@ void Tape::load(ifstream &definition, bool &valid) {
   }
 }
 
-// void Tape::validate(const Input_Alphabet &input_alphabet,
-//                     const Tape_Alphabet &tape_alphabet, bool &valid) const {
-//   if (input_alphabet.is_element(blank_character)) {
-//     cout << "Blank character " << blank_character << " is in input
-//     alphabet.\n"; valid = false;
-//   }
-//   if (!tape_alphabet.is_element(blank_character)) {
-//     cout << "Blank character " << blank_character
-//          << "is not in tape alphabet.\n";
-//     valid = false;
-//   }
-// }
+void Tape::validate(const Input_Alphabet &input_alphabet,
+                    const Tape_Alphabet &tape_alphabet, bool &valid) const {
+  if (input_alphabet.is_element(blank_character)) {
+    cout << "Blank character " << blank_character
+         << " is in input alphabet.\n ";
+    valid = false;
+  }
+  if (!tape_alphabet.is_element(blank_character)) {
+    cout << "Blank character " << blank_character
+         << "is not in tape alphabet.\n";
+    valid = false;
+  }
+}
 
 void Tape::view() const { cout << "B = " << blank_character << "\n\n"; }
 
@@ -55,7 +56,7 @@ void Tape::initialize(string input_string) {
 }
 
 void Tape::update(char write_character, direction move_direction) {
-  // move_direction = uppercase(move_direction);
+  move_direction = uppercase(move_direction);
   if ((move_direction == 'L') && (current_cell == 0))
     // array of characters terminated by a null byte gets implicitly type
     // converted into a string

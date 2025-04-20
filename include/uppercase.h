@@ -8,6 +8,7 @@
 #define UPPERCASE_H
 
 #include <algorithm>
+#include <cctype>
 #include <string>
 using namespace std;
 
@@ -22,6 +23,17 @@ inline string uppercase(const string &str) {
   transform(str_uppercase.begin(), str_uppercase.end(), str_uppercase.begin(),
             ::toupper);
   return str_uppercase;
+}
+
+/**
+ * @brief Convert a character to uppercase
+ *
+ * @param ch Character to convert to uppercase
+ * @return char Uppercase character
+ */
+inline char uppercase(const char &ch) {
+  char char_uppercase = toupper(static_cast<unsigned char>(ch));
+  return char_uppercase;
 }
 
 #endif

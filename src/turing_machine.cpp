@@ -21,7 +21,7 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   }
 
   string value = "";
-  bool valid = false;
+  bool valid = true;
   // Description
   while ((definition >> value) && (uppercase(value) != "STATES:"))
     description.push_back(value);
@@ -30,10 +30,11 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
     definition.close();
     exit(EXIT_FAILURE);
   }
-  // STATES
+  // Keywords
   states.load(definition, valid);
-  // INPUT_ALPHABET
-  // TAPE_ALPHABET
+  input_alphabet.load(definition, valid);
+  tape_alphabet.load(definition, valid);
+  input_alphabet.validate(tape_alphabet, valid);
   // TRANSITION_FUNCTION
   // INITIAL_STATE
   // BLANK_CHARACTER
@@ -54,6 +55,8 @@ void Turing_Machine::view_definition() const {
   }
   cout << endl << endl;
   states.view();
+  input_alphabet.view();
+  tape_alphabet.view();
 }
 
 bool Turing_Machine::is_valid_definition() const { return true; }
