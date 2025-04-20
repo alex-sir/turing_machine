@@ -32,28 +32,13 @@ public:
    */
   void trim_whitespace(string &str);
   /**
-   * @brief Check if a string contains only whitespace
+   * @brief Check if a command contains only whitespace
    *
-   * @param str String to check for only whitespace
-   * @return bool true if the string contains only whitespace
-   *              false if it contains non-whitespace characters
-   */
-  bool is_all_whitespace(string &str);
-  /**
-   * @brief Check if the command string contains only whitespace
-   *
-   * @param command String to check for only whitespace
-   * @return bool true if the command string contains only whitespace
+   * @param str Command to check for only whitespace
+   * @return bool true if the command contains only whitespace
    *              false if it contains non-whitespace characters
    */
   bool is_command_all_whitespace(string &command);
-  /**
-   * @brief Convert all the characters of a string to uppercase
-   *
-   * @param str String to convert to all uppercase
-   * @return string Modified string with all uppercase characters
-   */
-  string to_uppercase(const string &str);
   /**
    * @brief Obtain a command from the user and check if it is valid
    *

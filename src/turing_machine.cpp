@@ -5,37 +5,33 @@
  */
 
 #include "../include/turing_machine.h"
+#include "../include/uppercase.h"
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
 
 Turing_Machine::Turing_Machine(string definition_file_name) {
-  ifstream definition_file(definition_file_name + ".def");
-  if (!definition_file) {
-    cerr << "Error: Could not open Turing machine definition file "
+  ifstream definition(definition_file_name + ".def");
+  if (!definition) {
+    cout << "Error: Could not open Turing machine definition file "
          << definition_file_name + ".def" << endl;
+    definition.close();
     exit(EXIT_FAILURE);
   }
 
-  string definition_file_line = "";
-  string definition_file_line_uppercase = "";
-  size_t keyword_index = 0;
-
+  string value = "";
+  bool valid = false;
   // Description
-  getline(definition_file, definition_file_line);
-  definition_file_line += '\n';
-  definition_file_line_uppercase = utilities.to_uppercase(definition_file_line);
-  while ((keyword_index = definition_file_line_uppercase.find(STATES)) ==
-         string::npos) {
-    description.push_back(definition_file_line);
-    getline(definition_file, definition_file_line);
-    definition_file_line += '\n';
-    definition_file_line_uppercase =
-        utilities.to_uppercase(definition_file_line);
+  while ((definition >> value) && (uppercase(value) != "STATES:"))
+    description.push_back(value);
+  if (value != "STATES:") {
+    cout << "Error: Missing keyword after description\n";
+    definition.close();
+    exit(EXIT_FAILURE);
   }
-  description.push_back(definition_file_line.substr(0, keyword_index));
   // STATES
+  states.load(definition, valid);
   // INPUT_ALPHABET
   // TAPE_ALPHABET
   // TRANSITION_FUNCTION
@@ -43,14 +39,21 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   // BLANK_CHARACTER
   // FINAL_STATES
 
-  definition_file.close();
+  definition.close();
+  if (!valid)
+    exit(EXIT_FAILURE);
 }
 
 void Turing_Machine::view_definition() const {
+  // Description
   cout << endl;
-  for (size_t line = 0; line < description.size(); ++line)
-    cout << description[line];
+  for (size_t word = 0; word < description.size(); ++word) {
+    cout << description[word];
+    if (word != description.size() - 1)
+      cout << " ";
+  }
   cout << endl << endl;
+  states.view();
 }
 
 bool Turing_Machine::is_valid_definition() const { return true; }

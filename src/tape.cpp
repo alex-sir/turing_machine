@@ -9,8 +9,7 @@
 #include "../include/direction.h"
 #include "../include/input_alphabet.h"
 #include "../include/tape_alphabet.h"
-// #include "uppercase.h" // contains a custom function to convert a string to
-// all uppercase
+#include "../include/uppercase.h"
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -26,13 +25,13 @@ void Tape::load(ifstream &definition, bool &valid) {
       (value[0] != '>') && (value[0] >= '!') && (value[0] <= '~'))
     blank_character = value[0];
   else {
-    cout << "Illegal blank character.\n";
+    cout << "Error: Illegal blank character\n";
     valid = false;
   }
-  // if ((!(definition >> value)) || (uppercase(value) != "FINAL_STATES")) {
-  //   cout << "Missing keyword after blank character.\n";
-  //   valid = false;
-  // }
+  if ((!(definition >> value)) || (uppercase(value) != "FINAL_STATES:")) {
+    cout << "Error: Missing keyword after blank character\n";
+    valid = false;
+  }
 }
 
 // void Tape::validate(const Input_Alphabet &input_alphabet,

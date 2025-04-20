@@ -6,7 +6,6 @@
 
 #include "../include/utilities.h"
 
-#include <algorithm>
 #include <iostream>
 #include <string>
 using namespace std;
@@ -32,32 +31,20 @@ void Utilities::trim_whitespace(string &str) {
     str.erase(non_whitespace + 1);
 }
 
-bool Utilities::is_all_whitespace(string &str) {
+bool Utilities::is_command_all_whitespace(string &command) {
   bool all_whitespace = true;
   // Check all characters in line for whitespace
-  for (char c : str) {
+  for (char c : command) {
     if (!isspace(c)) {
       all_whitespace = false;
       break;
     }
   }
 
-  return all_whitespace;
-}
-
-bool Utilities::is_command_all_whitespace(string &command) {
-  bool all_whitespace = is_all_whitespace(command);
   // Treat command as an empty response
   if (all_whitespace)
     command.erase(0, command.length());
   return all_whitespace;
-}
-
-string Utilities::to_uppercase(const string &str) {
-  string line_uppercase = str;
-  transform(line_uppercase.begin(), line_uppercase.end(),
-            line_uppercase.begin(), ::toupper);
-  return line_uppercase;
 }
 
 bool Utilities::is_valid_command(string &command) {
