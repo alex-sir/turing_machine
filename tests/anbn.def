@@ -16,7 +16,7 @@ TRANSITION_FUNCTION:
    s2 X   s0 X R
    s2 Y   s2 Y L
    s3 Y   s3 Y R
-   s3 -   s4 – R
+   s3 -   s4 - R
 
 INITIAL_STATE: s0
 

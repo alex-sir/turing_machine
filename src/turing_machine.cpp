@@ -35,10 +35,11 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   input_alphabet.load(definition, valid);
   tape_alphabet.load(definition, valid);
   input_alphabet.validate(tape_alphabet, valid);
-  // TRANSITION_FUNCTION
+  transition_function.load(definition, valid);
+  transition_function.validate(tape_alphabet, states, final_states, valid);
   // INITIAL_STATE
   // BLANK_CHARACTER
-  // FINAL_STATES
+  // final_states.load(definition, valid);
 
   definition.close();
   if (!valid)
@@ -57,6 +58,7 @@ void Turing_Machine::view_definition() const {
   states.view();
   input_alphabet.view();
   tape_alphabet.view();
+  transition_function.view();
 }
 
 bool Turing_Machine::is_valid_definition() const { return true; }

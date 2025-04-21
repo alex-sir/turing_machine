@@ -24,11 +24,11 @@ public:
    * @param valid true if the set of states is valid
    *              false if the set of states is invalid
    */
-  void load(ifstream &definition, bool &valid);
+  virtual void load(ifstream &definition, bool &valid);
   /**
    * @brief Display the states of the Turing machine
    */
-  void view(void) const;
+  virtual void view(void) const;
   /**
    * @brief Check if a value is a duplicate in the set of states
    *
@@ -37,7 +37,7 @@ public:
    * @return bool true if the value is a duplicate
    *              false if the value is not a duplicate
    */
-  bool is_element(string value);
+  bool is_element(string value) const;
 };
 
 #endif

@@ -49,7 +49,7 @@ void States::view(void) const {
   cout << "}" << endl << endl;
 }
 
-bool States::is_element(string value) {
+bool States::is_element(string value) const {
   for (const string &name : names) {
     if (name == value)
       return true;

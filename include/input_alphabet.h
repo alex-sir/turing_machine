@@ -27,7 +27,7 @@ public:
    */
   void load(ifstream &definition, bool &valid) override;
   /**
-   * @brief Determine if the input alaphabet is a subset of the tape alphabet
+   * @brief Determine if the input alphabet is a subset of the tape alphabet
    *
    * @param tape_alphabet Tape alphabet to compare to the input alaphabet
    * @param valid true if the input alphabet is a subset of the tape alphabet

@@ -5,3 +5,48 @@
  */
 
 #include "../include/final_states.h"
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+void Final_States::load(ifstream &definition, bool &valid) {
+  string value;
+  while (definition >> value) {
+    for (const char ch : value) {
+      // Final states must be upper & lower case letters, digits, underscores, &
+      // hyphens
+      if (!isalnum(ch) && ch != '_' && ch != '-') {
+        cout << "Error: Illegal final state\n";
+        valid = false;
+      }
+    }
+    // No duplicate final states allowed
+    if (!is_element(value))
+      names.push_back(value);
+    else {
+      cout << "Error: Duplicate final state\n";
+      valid = false;
+    }
+  }
+}
+
+void Final_States::validate(States &states, bool &valid) const {
+  for (const string &name : names) {
+    if (!states.is_element(name)) {
+      cout << "Error: Value in final states not in states\n";
+      valid = false;
+    }
+  }
+}
+
+void Final_States::view(void) const {
+  cout << "F = {";
+  for (size_t name = 0; name < names.size(); ++name) {
+    cout << names[name];
+    if (name != names.size() - 1)
+      cout << ", ";
+  }
+  cout << "}" << endl << endl;
+}

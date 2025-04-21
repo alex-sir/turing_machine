@@ -22,10 +22,25 @@ private:
 public:
   Transition(string source_state, char read_character, string destination_state,
              char write_character, direction move_direction);
+  /**
+   * @brief Return the start state of the transition function
+   */
   string source_state() const;
+  /**
+   * @brief Return the staring character of the transition function
+   */
   char read_character() const;
+  /**
+   * @brief Return the end state of the transition function
+   */
   string destination_state() const;
+  /**
+   * @brief Return the character to write over the current tape cell
+   */
   char write_character() const;
+  /**
+   * @brief Return the direction to move the tape head (left or right)
+   */
   direction move_direction() const;
 };
 
