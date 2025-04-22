@@ -27,21 +27,27 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
     description.push_back(value);
   if (value != "STATES:") {
     cout << "Error: Missing keyword after description\n";
-    definition.close();
-    exit(EXIT_FAILURE);
+    valid = false;
   }
   // Keywords
   states.load(definition, valid);
   input_alphabet.load(definition, valid);
   tape_alphabet.load(definition, valid);
-  input_alphabet.validate(tape_alphabet, valid);
   transition_function.load(definition, valid);
-  transition_function.validate(tape_alphabet, states, final_states, valid);
-  // INITIAL_STATE
-  // BLANK_CHARACTER
-  // final_states.load(definition, valid);
-
+  // Initial state
+  definition >> initial_state;
+  definition >> value;
+  if (value != "BLANK_CHARACTER:") {
+    cout << "Error: Missing keyword after initial state\n";
+    valid = false;
+  }
+  // Blank character
+  tape.load(definition, valid);
+  final_states.load(definition, valid);
   definition.close();
+  // Check that the Turing machine definition file is fully valid
+  valid = is_valid_definition();
+
   if (!valid)
     exit(EXIT_FAILURE);
 }
@@ -55,10 +61,21 @@ void Turing_Machine::view_definition() const {
       cout << " ";
   }
   cout << endl << endl;
+  // Keywords
   states.view();
   input_alphabet.view();
   tape_alphabet.view();
   transition_function.view();
+  cout << "q0 = " << initial_state << endl << endl;
+  tape.view();
+  final_states.view();
 }
 
-bool Turing_Machine::is_valid_definition() const { return true; }
+bool Turing_Machine::is_valid_definition() const {
+  bool valid = true;
+  input_alphabet.validate(tape_alphabet, valid);
+  transition_function.validate(tape_alphabet, states, final_states, valid);
+  tape.validate(input_alphabet, tape_alphabet, valid);
+  final_states.validate(states, valid);
+  return valid;
+}

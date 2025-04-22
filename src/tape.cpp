@@ -37,13 +37,13 @@ void Tape::load(ifstream &definition, bool &valid) {
 void Tape::validate(const Input_Alphabet &input_alphabet,
                     const Tape_Alphabet &tape_alphabet, bool &valid) const {
   if (input_alphabet.is_element(blank_character)) {
-    cout << "Blank character " << blank_character
-         << " is in input alphabet.\n ";
+    cout << "Error: Blank character " << blank_character
+         << " is in input alphabet\n ";
     valid = false;
   }
   if (!tape_alphabet.is_element(blank_character)) {
-    cout << "Blank character " << blank_character
-         << "is not in tape alphabet.\n";
+    cout << "Error: Blank character " << blank_character
+         << "is not in tape alphabet\n";
     valid = false;
   }
 }

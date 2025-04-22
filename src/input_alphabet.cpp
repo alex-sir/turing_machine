@@ -39,9 +39,8 @@ void Input_Alphabet::load(ifstream &definition, bool &valid) {
   }
 }
 
-void Input_Alphabet::validate(Tape_Alphabet &tape_alphabet, bool &valid) const {
-  // TODO: Add a check that ensures the blank character is not in the input
-  // alphabet
+void Input_Alphabet::validate(const Tape_Alphabet &tape_alphabet,
+                              bool &valid) const {
   for (const char &current_value : alphabet) {
     if (!tape_alphabet.is_element(current_value)) {
       cout << "Error: Value in input alphabet not in tape alphabet\n";

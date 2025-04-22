@@ -38,7 +38,16 @@ private:
   bool rejected;
 
 public:
+  /**
+   * @brief Constructor that initializes a Turing machine based on a definition
+   *        file
+   *
+   * @param definition_file_name Name of the Turing machine definition file
+   */
   Turing_Machine(string definition_file_name);
+  /**
+   * @brief Display the definition of the Turing machine in a readable form
+   */
   void view_definition() const;
   void view_instantaneous_description(int maximum_number_of_cells) const;
   void initialize(string input_string);
@@ -46,6 +55,12 @@ public:
   void terminate_operation();
   string input_string() const;
   int total_number_of_transitions() const;
+  /**
+   * @brief Return whether the Turing machine definition is fully valid
+   *
+   * @return bool true if the definition is fully valid
+   *              false if the definition is not fully vaild
+   */
   bool is_valid_definition() const;
   bool is_valid_input_string(string value) const;
   bool is_used() const;

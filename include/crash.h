@@ -13,6 +13,10 @@ using namespace std;
 
 class Crash : public runtime_error {
 public:
+  /**
+   * @brief Constructor for an object of the class that executes a runtime error
+   *        with a given message
+   */
   Crash(string reason);
 };
 

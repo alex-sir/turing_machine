@@ -34,7 +34,7 @@ public:
    *              false if the input alphabet is not a subset of the tape
    *              alphabet
    */
-  void validate(Tape_Alphabet &tape_alphabet, bool &valid) const;
+  void validate(const Tape_Alphabet &tape_alphabet, bool &valid) const;
   /**
    * @brief Display the input alphabet of the Turing machine
    */

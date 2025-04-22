@@ -35,7 +35,7 @@ public:
    *              false if the set of final states is not a subset of the set of
    *              states
    */
-  void validate(States &states, bool &valid) const;
+  void validate(const States &states, bool &valid) const;
   /**
    * @brief Display the set of final states of the Turing machine
    */

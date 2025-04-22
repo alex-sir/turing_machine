@@ -101,25 +101,4 @@ void Commands::truncate(void) {
        << endl;
 }
 
-void Commands::view(void) {
-  // cout << "\nThis Turing machine accepts the language of one or more A's "
-  //         "followed by the same number of B's.\n\n"
-  //      << "Q = {s0, s1, s2, s3, s4}\n\n"
-  //      << "Σ = {a, b}\n\n"
-  //      << "Γ = {a, b, X, Y, -}\n\n"
-  //      << "δ(s0, a) = (s1, X, R)\n"
-  //      << "δ(s0, Y) = (s3, Y, R)\n"
-  //      << "δ(s1, a) = (s1, a, R)\n"
-  //      << "δ(s1, b) = (s2, Y, L)\n"
-  //      << "δ(s1, Y) = (s1, Y, R)\n"
-  //      << "δ(s2, a) = (s2, a, L)\n"
-  //      << "δ(s2, X) = (s0, X, R)\n"
-  //      << "δ(s2, Y) = (s2, Y, L)\n"
-  //      << "δ(s3, Y) = (s3, Y, R)\n"
-  //      << "δ(s3, -) = (s4, -, R)\n\n"
-  //      << "q0 = s0\n\n"
-  //      << "B = -\n\n"
-  //      << "F = {s4}\n"
-  //      << endl;
-  turing_machine.view_definition();
-}
+void Commands::view(void) { turing_machine.view_definition(); }

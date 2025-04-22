@@ -32,7 +32,7 @@ void Final_States::load(ifstream &definition, bool &valid) {
   }
 }
 
-void Final_States::validate(States &states, bool &valid) const {
+void Final_States::validate(const States &states, bool &valid) const {
   for (const string &name : names) {
     if (!states.is_element(name)) {
       cout << "Error: Value in final states not in states\n";

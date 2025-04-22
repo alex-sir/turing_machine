@@ -18,6 +18,10 @@ private:
   bool changed;
 
 public:
+  /**
+   * @brief Constructor that initializes an object of the class with default
+   *        values and a file name
+   */
   Input_Strings(string input_string_file_name);
   void insert(string input_string);
   void view(void);
