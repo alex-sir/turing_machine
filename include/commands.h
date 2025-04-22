@@ -29,7 +29,7 @@ public:
    *        that corresponds to the Turing machine definition file and the input
    *        string file
    */
-  Commands(string new_file_name);
+  Commands(string file_name);
   /**
    * @brief Run the delete command 'd', which allows the user to select an input
    *        string to delete from the list of input strings
@@ -39,7 +39,7 @@ public:
    * @brief Run the exit command 'x', which allows the user to exit the
    *        application
    */
-  void exit(void);
+  void ext(void);
   /**
    * @brief Run the help command 'h', which allows the user to display a help
    *        message containing a list of commands and their descriptions

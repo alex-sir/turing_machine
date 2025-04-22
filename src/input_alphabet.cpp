@@ -58,3 +58,11 @@ void Input_Alphabet::view(void) const {
   }
   cout << "}" << endl << endl;
 }
+
+bool Input_Alphabet::is_element(char value) const {
+  for (const char &current_value : alphabet) {
+    if (current_value == value)
+      return true;
+  }
+  return false;
+}

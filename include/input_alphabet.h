@@ -19,7 +19,7 @@ private:
 public:
   /**
    * @brief Read the set of input alphabet values from a Turing machine
-   * definition file
+   *        definition file
    *
    * @param definition Turing machine definition file
    * @param valid true if the set of input alphabet values is valid
@@ -39,6 +39,14 @@ public:
    * @brief Display the input alphabet of the Turing machine
    */
   void view(void) const override;
+  /**
+   * @brief Check if a value is a duplicate in the input alphabet
+   *
+   * @param value Character to check for duplicity in the input alphabet
+   * @return bool true if the value is a duplicate
+   *              false if the value is not a duplicate
+   */
+  bool is_element(char value) const override;
 };
 
 #endif

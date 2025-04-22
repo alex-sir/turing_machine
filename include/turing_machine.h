@@ -62,6 +62,12 @@ public:
    *              false if the definition is not fully vaild
    */
   bool is_valid_definition() const;
+  /**
+   * @brief Return whether an input string conforms to the rules of validity
+   *
+   * @return bool true if the input string is valid
+   *              false if the input string is not valid
+   */
   bool is_valid_input_string(string value) const;
   bool is_used() const;
   bool is_operating() const;

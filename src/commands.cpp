@@ -6,12 +6,42 @@
 
 #include "../include/commands.h"
 #include "../include/turing_machine.h"
+#include <cstdlib>
 #include <iomanip>
 #include <iostream>
 using namespace std;
 
-Commands::Commands(string new_file_name)
-    : turing_machine(new_file_name), input_strings(new_file_name) {}
+Commands::Commands(string file_name)
+    : turing_machine(file_name), input_strings(file_name) {
+  ifstream input_string_file(file_name + ".str");
+  if (!input_string_file) {
+    cout << "Error: Could not open input string file " << file_name + ".str"
+         << endl;
+    exit(EXIT_FAILURE);
+  }
+
+  string value = "";
+  bool not_duplicate = true;
+  /*
+   * Insert every line from the input string file into the list
+   * Input string duplicates and invalid strings are simply discarded with an
+   * appropriate error message displayed
+   */
+  // TODO: Set changed to true when discarding an input string from the file
+  while (getline(input_string_file, value)) {
+    if (input_strings.is_element(value)) {
+      cout << "Error: Input string is duplicate" << endl;
+      not_duplicate = false;
+    }
+    if (not_duplicate && turing_machine.is_valid_input_string(value))
+      input_strings.insert(value);
+    else
+      cout << "Notice: Invalid input string \"" << value << "\" discarded"
+           << endl;
+    not_duplicate = true;
+  }
+  input_string_file.close();
+}
 
 void Commands::del(void) {
   cout << "\nInput String Number: 1\n"
@@ -19,7 +49,7 @@ void Commands::del(void) {
        << endl;
 }
 
-void Commands::exit(void) {
+void Commands::ext(void) {
   cout << "\nInput strings list successfully written to file!" << endl;
 }
 

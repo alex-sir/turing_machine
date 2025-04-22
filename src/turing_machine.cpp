@@ -6,6 +6,8 @@
 
 #include "../include/turing_machine.h"
 #include "../include/uppercase.h"
+#include <algorithm>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,7 +18,6 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   if (!definition) {
     cout << "Error: Could not open Turing machine definition file "
          << definition_file_name + ".def" << endl;
-    definition.close();
     exit(EXIT_FAILURE);
   }
 
@@ -77,5 +78,35 @@ bool Turing_Machine::is_valid_definition() const {
   transition_function.validate(tape_alphabet, states, final_states, valid);
   tape.validate(input_alphabet, tape_alphabet, valid);
   final_states.validate(states, valid);
+  return valid;
+}
+
+bool Turing_Machine::is_valid_input_string(string value) const {
+  bool valid = true;
+  // Empty string represented by '\'
+  if (value.length() == 1 && value[0] == '\\')
+    return valid;
+  /* String is invalid if it satisfies any of the following
+   * Empty line
+   * All whitespace
+   * Contains leading/trailing whitespace
+   */
+  if (value.empty() ||
+      all_of(value.begin(), value.end(), [](char ch) { return isspace(ch); }) ||
+      isspace(value.front()) || isspace(value.back())) {
+    cout << "Error: Input string is empty or contains leading/trailing "
+            "whitespace"
+         << endl;
+    valid = false;
+  }
+  // String is invalid if it contains characters not in the input alphabet
+  for (char ch : value) {
+    if (!input_alphabet.is_element(ch) && !isspace(ch)) {
+      cout << "Error: Input string contains character not in input alphabet"
+           << endl;
+      valid = false;
+      break;
+    }
+  }
   return valid;
 }

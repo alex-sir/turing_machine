@@ -30,13 +30,13 @@ public:
    */
   virtual void view(void) const;
   /**
-   * @brief Check if a value is a duplicate in the alphabet
+   * @brief Check if a value is a duplicate in the tape alphabet
    *
-   * @param value Character to check for duplicity in the alphabet
+   * @param value Character to check for duplicity in the tape alphabet
    * @return bool true if the value is a duplicate
    *              false if the value is not a duplicate
    */
-  bool is_element(char value) const;
+  virtual bool is_element(char value) const;
 };
 
 #endif

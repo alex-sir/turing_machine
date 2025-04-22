@@ -11,13 +11,13 @@
 #include <string>
 using namespace std;
 
-// cout << "anbn successfully loaded!\n" << endl;
 int main(int argc, char *argv[]) {
   Utilities utilities;
   if (!utilities.is_valid_arguments(argc))
     return EXIT_FAILURE;
 
   Commands commands(argv[1]);
+  cout << argv[1] << " successfully loaded!\n" << endl;
   string command = "";
   bool valid_command = false;
   bool exit = false;
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
         commands.del();
         break;
       case 'x': // Exit
-        commands.exit();
+        commands.ext();
         exit = true;
         break;
       case 'h': // Help
