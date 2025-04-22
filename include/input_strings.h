@@ -18,12 +18,17 @@ private:
   bool changed;
 
 public:
-  // TODO: Add a method that allows for setting changed to true
   /**
    * @brief Constructor that initializes an object of the class with default
    *        values and a file name
    */
   Input_Strings(string input_string_file_name);
+  /**
+   * @brief Set a new value for the "changed" attribute
+   *
+   * @param new_changed New value for "changed"
+   */
+  void set_changed(const bool new_changed);
   /**
    * @brief Add an input string to the list of input strings
    *

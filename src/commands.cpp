@@ -22,12 +22,12 @@ Commands::Commands(string file_name)
 
   string value = "";
   bool not_duplicate = true;
+  bool string_was_discarded = false;
   /*
    * Insert every line from the input string file into the list
    * Input string duplicates and invalid strings are simply discarded with an
    * appropriate error message displayed
    */
-  // TODO: Set changed to true when discarding an input string from the file
   while (getline(input_string_file, value)) {
     if (input_strings.is_element(value)) {
       cout << "Error: Input string is duplicate" << endl;
@@ -35,11 +35,18 @@ Commands::Commands(string file_name)
     }
     if (not_duplicate && turing_machine.is_valid_input_string(value))
       input_strings.insert(value);
-    else
+    else {
       cout << "Notice: Invalid input string \"" << value << "\" discarded"
            << endl;
+      // Discarding an input string changes the input strings list
+      string_was_discarded = true;
+    }
     not_duplicate = true;
   }
+  // Don't count the input strings list as changed when reading in the list in
+  // the file if no input strings were discarded
+  if (!string_was_discarded)
+    input_strings.set_changed(false);
   input_string_file.close();
 }
 
@@ -50,7 +57,9 @@ void Commands::del(void) {
 }
 
 void Commands::ext(void) {
-  cout << "\nInput strings list successfully written to file!" << endl;
+  if (input_strings.is_changed()) {
+    input_strings.write();
+  }
 }
 
 void Commands::help(void) {
