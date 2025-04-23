@@ -7,12 +7,8 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#include <fstream>
 #include <string>
 using namespace std;
-
-// All whitespace characters as defined in isspace()
-#define WHITESPACE " \f\n\r\t\v"
 
 class Utilities {
 private:
@@ -25,12 +21,6 @@ public:
    *              false if the number of arguments is not valid
    */
   bool is_valid_arguments(int argc);
-  /**
-   * @brief Trim leading & trailing whitespace from the string
-   *
-   * @param str String to remove whitespace from
-   */
-  void trim_whitespace(string &str);
   /**
    * @brief Check if a command contains only whitespace
    *

@@ -7,9 +7,11 @@
 #include "../include/commands.h"
 #include "../include/crash.h"
 #include "../include/turing_machine.h"
+#include "../include/whitespace.h"
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
+#include <string>
 using namespace std;
 
 Commands::Commands(string file_name)
@@ -133,9 +135,35 @@ void Commands::show(void) {
 }
 
 void Commands::truncate(void) {
-  cout << "\nMaximum Instantaneous Description Cells [32]: 2\n"
-       << "Value successfully changed to 2!\n"
-       << endl;
+  string invalid_input = "Invalid input - setting not changed\n";
+  string value = "";
+  cout << "\nMaximum Instantaneous Description Cells ["
+       << configuration_settings.maximum_number_of_cells() << "]: ";
+  getline(cin, value);
+  trim_whitespace(value);
+
+  // Leave setting unchanged for empty input
+  if (value.empty() || is_all_whitespace(value)) {
+    cout << endl;
+    return;
+  }
+
+  // Check that the user entered an integer
+  for (const char ch : value) {
+    if (!isdigit(ch)) {
+      cout << invalid_input << endl;
+      return;
+    }
+  }
+
+  int number_of_cells = stoi(value);
+  // Only positive integers accepted
+  if (number_of_cells > 0) {
+    configuration_settings.set_number_of_cells(number_of_cells);
+    cout << "Value successfully changed to " << number_of_cells << "!\n"
+         << endl;
+  } else
+    cout << invalid_input << endl;
 }
 
 void Commands::view(void) { turing_machine.view_definition(); }

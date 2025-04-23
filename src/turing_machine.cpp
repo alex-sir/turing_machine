@@ -7,7 +7,7 @@
 #include "../include/turing_machine.h"
 #include "../include/crash.h"
 #include "../include/uppercase.h"
-#include <algorithm>
+#include "../include/whitespace.h"
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -71,6 +71,12 @@ void Turing_Machine::view_definition() const {
   final_states.view();
 }
 
+string Turing_Machine::input_string() const { return original_input_string; }
+
+int Turing_Machine::total_number_of_transitions() const {
+  return number_of_transitions;
+}
+
 bool Turing_Machine::is_valid_definition() const {
   bool valid = true;
   input_alphabet.validate(tape_alphabet, valid);
@@ -85,19 +91,20 @@ bool Turing_Machine::is_valid_input_string(string value) const {
   // Empty string represented by '\'
   if (value.length() == 1 && value[0] == '\\')
     return valid;
-  /* String is invalid if it satisfies any of the following
+
+  /* String is invalid if it satisfies any of the following:
    * Empty line
    * All whitespace
    * Contains leading/trailing whitespace
    */
-  if (value.empty() ||
-      all_of(value.begin(), value.end(), [](char ch) { return isspace(ch); }) ||
-      isspace(value.front()) || isspace(value.back())) {
+  if (value.empty() || is_all_whitespace(value) || isspace(value.front()) ||
+      isspace(value.back())) {
     cout << "Warning: Input string is empty or contains leading/trailing "
             "whitespace"
          << endl;
     valid = false;
   }
+
   // String is invalid if it contains characters not in the input alphabet
   for (char ch : value) {
     if (!input_alphabet.is_element(ch) && !isspace(ch)) {
@@ -109,3 +116,11 @@ bool Turing_Machine::is_valid_input_string(string value) const {
   }
   return valid;
 }
+
+bool Turing_Machine::is_used() const { return used; }
+
+bool Turing_Machine::is_operating() const { return operating; }
+
+bool Turing_Machine::is_accepted_input_string() const { return accepted; }
+
+bool Turing_Machine::is_rejected_input_string() const { return rejected; }

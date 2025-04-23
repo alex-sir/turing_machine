@@ -5,7 +5,7 @@
  */
 
 #include "../include/utilities.h"
-
+#include "../include/whitespace.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -19,27 +19,8 @@ bool Utilities::is_valid_arguments(int argc) {
   return true;
 }
 
-void Utilities::trim_whitespace(string &str) {
-  // Leading whitespace
-  size_t non_whitespace = str.find_first_not_of(WHITESPACE);
-  if (non_whitespace != string::npos)
-    str.erase(0, non_whitespace);
-
-  // Trailing whitespace
-  non_whitespace = str.find_last_not_of(WHITESPACE);
-  if (non_whitespace != string::npos)
-    str.erase(non_whitespace + 1);
-}
-
 bool Utilities::is_command_all_whitespace(string &command) {
-  bool all_whitespace = true;
-  // Check all characters in line for whitespace
-  for (char c : command) {
-    if (!isspace(c)) {
-      all_whitespace = false;
-      break;
-    }
-  }
+  bool all_whitespace = is_all_whitespace(command);
 
   // Treat command as an empty response
   if (all_whitespace)
