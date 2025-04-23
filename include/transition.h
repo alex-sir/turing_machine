@@ -20,6 +20,9 @@ private:
   direction move;
 
 public:
+  /**
+   * @brief Constructor that initializes a Transition with the given values
+   */
   Transition(string source_state, char read_character, string destination_state,
              char write_character, direction move_direction);
   /**

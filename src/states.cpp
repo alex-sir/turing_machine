@@ -19,7 +19,7 @@ void States::load(ifstream &definition, bool &valid) {
       // State must be upper & lower case letters, digits, underscores, &
       // hyphens
       if (!isalnum(ch) && ch != '_' && ch != '-') {
-        cout << "Error: Illegal state\n";
+        cout << "Warning: Illegal state" << endl;
         valid = false;
       }
     }
@@ -27,13 +27,13 @@ void States::load(ifstream &definition, bool &valid) {
     if (!is_element(value))
       names.push_back(value);
     else {
-      cout << "Error: Duplicate state\n";
+      cout << "Warning: Duplicate state" << endl;
       valid = false;
     }
   }
   // Make sure the next keyword follows
   if (uppercase(value) != "INPUT_ALPHABET:") {
-    cout << "Error: Missing keyword after states\n";
+    cout << "Warning: Missing keyword after states" << endl;
     valid = false;
   }
 }

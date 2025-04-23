@@ -24,12 +24,6 @@ public:
    */
   Input_Strings(string input_string_file_name);
   /**
-   * @brief Set a new value for the "changed" attribute
-   *
-   * @param new_changed New value for "changed"
-   */
-  void set_changed(const bool new_changed);
-  /**
    * @brief Add an input string to the list of input strings
    *
    * @param input_string Input string to add to the list
@@ -58,6 +52,12 @@ public:
    * @return int Total number of input strings
    */
   int size(void);
+  /**
+   * @brief Set a new value for the "changed" attribute
+   *
+   * @param new_changed New value for "changed"
+   */
+  void set_changed(const bool new_changed);
   /**
    * @brief Return whether the input strings list has been modified
    *

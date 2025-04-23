@@ -25,11 +25,11 @@ void Tape::load(ifstream &definition, bool &valid) {
       (value[0] != '>') && (value[0] >= '!') && (value[0] <= '~'))
     blank_character = value[0];
   else {
-    cout << "Error: Illegal blank character\n";
+    cout << "Warning: Illegal blank character" << endl;
     valid = false;
   }
   if ((!(definition >> value)) || (uppercase(value) != "FINAL_STATES:")) {
-    cout << "Error: Missing keyword after blank character\n";
+    cout << "Warning: Missing keyword after blank character" << endl;
     valid = false;
   }
 }
@@ -37,18 +37,18 @@ void Tape::load(ifstream &definition, bool &valid) {
 void Tape::validate(const Input_Alphabet &input_alphabet,
                     const Tape_Alphabet &tape_alphabet, bool &valid) const {
   if (input_alphabet.is_element(blank_character)) {
-    cout << "Error: Blank character " << blank_character
-         << " is in input alphabet\n ";
+    cout << "Warning: Blank character " << blank_character
+         << " is in input alphabet" << endl;
     valid = false;
   }
   if (!tape_alphabet.is_element(blank_character)) {
-    cout << "Error: Blank character " << blank_character
-         << "is not in tape alphabet\n";
+    cout << "Warning: Blank character " << blank_character
+         << "is not in tape alphabet" << endl;
     valid = false;
   }
 }
 
-void Tape::view() const { cout << "B = " << blank_character << "\n\n"; }
+void Tape::view() const { cout << "B = " << blank_character << endl << endl; }
 
 void Tape::initialize(string input_string) {
   cells = input_string + blank_character;
@@ -58,14 +58,9 @@ void Tape::initialize(string input_string) {
 void Tape::update(char write_character, direction move_direction) {
   move_direction = uppercase(move_direction);
   if ((move_direction == 'L') && (current_cell == 0))
-    // array of characters terminated by a null byte gets implicitly type
-    // converted into a string
     throw Crash("Left move from first cell");
   if ((move_direction == 'R') &&
       (current_cell == static_cast<int>(cells.length() - 1)))
-    // "bad_alloc" is the type of exception thrown when out of memory from
-    // adding cells (derived from the base class "exception") virtual function
-    // "what" is implemented in the C++ class "exception"
     cells += blank_character;
   cells[current_cell] = write_character;
   if (move_direction == 'L')

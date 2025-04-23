@@ -5,6 +5,7 @@
  */
 
 #include "../include/input_strings.h"
+#include "../include/crash.h"
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -14,10 +15,6 @@ using namespace std;
 
 Input_Strings::Input_Strings(string input_string_file_name)
     : list({}), file_name(input_string_file_name + ".str"), changed(false) {}
-
-void Input_Strings::set_changed(const bool new_changed) {
-  changed = new_changed;
-}
 
 void Input_Strings::insert(string input_string) {
   list.push_back(input_string);
@@ -47,6 +44,10 @@ string Input_Strings::input_string(int input_string_number) {
 
 int Input_Strings::size(void) { return list.size(); }
 
+void Input_Strings::set_changed(const bool new_changed) {
+  changed = new_changed;
+}
+
 bool Input_Strings::is_changed(void) { return changed; }
 
 bool Input_Strings::is_element(string value) {
@@ -60,15 +61,11 @@ bool Input_Strings::is_element(string value) {
 void Input_Strings::write(void) {
   if (is_changed()) {
     ofstream input_string_file(file_name);
-    if (!input_string_file) {
-      cout << "Error: Could not open input string file " << file_name + ".str"
-           << " for writing" << endl;
-      exit(EXIT_FAILURE);
-    }
+    if (!input_string_file)
+      throw Crash("Could not open input string file " + file_name + ".str");
     // Write every input string in the list to their own line
-    for (const string &input_string : list) {
-      input_string_file << input_string << '\n';
-    }
+    for (const string &input_string : list)
+      input_string_file << input_string << endl;
     input_string_file.close();
     cout << "\nInput strings list successfully written to file!" << endl;
     changed = false;

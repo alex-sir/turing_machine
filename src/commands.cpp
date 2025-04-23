@@ -5,6 +5,7 @@
  */
 
 #include "../include/commands.h"
+#include "../include/crash.h"
 #include "../include/turing_machine.h"
 #include <cstdlib>
 #include <iomanip>
@@ -14,11 +15,8 @@ using namespace std;
 Commands::Commands(string file_name)
     : turing_machine(file_name), input_strings(file_name) {
   ifstream input_string_file(file_name + ".str");
-  if (!input_string_file) {
-    cout << "Error: Could not open input string file " << file_name + ".str"
-         << endl;
-    exit(EXIT_FAILURE);
-  }
+  if (!input_string_file)
+    throw Crash("Could not open input string file " + file_name + ".str");
 
   string value = "";
   bool not_duplicate = true;
@@ -30,7 +28,7 @@ Commands::Commands(string file_name)
    */
   while (getline(input_string_file, value)) {
     if (input_strings.is_element(value)) {
-      cout << "Error: Input string is duplicate" << endl;
+      cout << "Warning: Input string is duplicate" << endl;
       not_duplicate = false;
     }
     if (not_duplicate && turing_machine.is_valid_input_string(value))

@@ -25,16 +25,16 @@ void Tape_Alphabet::load(ifstream &definition, bool &valid) {
       if (!is_element(value[0]))
         alphabet.push_back(value[0]);
       else {
-        cout << "Error: Duplicate tape alphabet value\n";
+        cout << "Warning: Duplicate tape alphabet value" << endl;
         valid = false;
       }
     } else {
-      cout << "Error: Illegal tape alphabet value\n";
+      cout << "Warning: Illegal tape alphabet value" << endl;
       valid = false;
     }
   }
   if (uppercase(value) != "TRANSITION_FUNCTION:") {
-    cout << "Error: Missing keyword after tape alphabet\n";
+    cout << "Warning: Missing keyword after tape alphabet" << endl;
     valid = false;
   }
 }

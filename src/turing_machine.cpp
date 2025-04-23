@@ -5,6 +5,7 @@
  */
 
 #include "../include/turing_machine.h"
+#include "../include/crash.h"
 #include "../include/uppercase.h"
 #include <algorithm>
 #include <cstdlib>
@@ -15,11 +16,9 @@ using namespace std;
 
 Turing_Machine::Turing_Machine(string definition_file_name) {
   ifstream definition(definition_file_name + ".def");
-  if (!definition) {
-    cout << "Error: Could not open Turing machine definition file "
-         << definition_file_name + ".def" << endl;
-    exit(EXIT_FAILURE);
-  }
+  if (!definition)
+    throw Crash("Could not open Turing machine definition file " +
+                definition_file_name + ".def");
 
   string value = "";
   bool valid = true;
@@ -27,7 +26,7 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   while ((definition >> value) && (uppercase(value) != "STATES:"))
     description.push_back(value);
   if (value != "STATES:") {
-    cout << "Error: Missing keyword after description\n";
+    cout << "Warning: Missing keyword after description" << endl;
     valid = false;
   }
   // Keywords
@@ -39,7 +38,7 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   definition >> initial_state;
   definition >> value;
   if (value != "BLANK_CHARACTER:") {
-    cout << "Error: Missing keyword after initial state\n";
+    cout << "Warning: Missing keyword after initial state" << endl;
     valid = false;
   }
   // Blank character
@@ -50,7 +49,7 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   valid = is_valid_definition();
 
   if (!valid)
-    exit(EXIT_FAILURE);
+    throw Crash("Invalid Turing machine definition file");
 }
 
 void Turing_Machine::view_definition() const {
@@ -94,7 +93,7 @@ bool Turing_Machine::is_valid_input_string(string value) const {
   if (value.empty() ||
       all_of(value.begin(), value.end(), [](char ch) { return isspace(ch); }) ||
       isspace(value.front()) || isspace(value.back())) {
-    cout << "Error: Input string is empty or contains leading/trailing "
+    cout << "Warning: Input string is empty or contains leading/trailing "
             "whitespace"
          << endl;
     valid = false;
@@ -102,7 +101,7 @@ bool Turing_Machine::is_valid_input_string(string value) const {
   // String is invalid if it contains characters not in the input alphabet
   for (char ch : value) {
     if (!input_alphabet.is_element(ch) && !isspace(ch)) {
-      cout << "Error: Input string contains character not in input alphabet"
+      cout << "Warning: Input string contains character not in input alphabet"
            << endl;
       valid = false;
       break;
