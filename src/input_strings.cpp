@@ -22,12 +22,16 @@ void Input_Strings::insert(string input_string) {
 }
 
 void Input_Strings::view(void) {
-  // Used to properly align the list
-  size_t list_size_number_of_digits = to_string(list.size()).length();
   cout << endl;
-  for (size_t index = 0; index < list.size(); ++index)
-    cout << setw(list_size_number_of_digits) << index + 1 << ". " << list[index]
-         << endl;
+  if (list.size() == 0)
+    cout << "Notice: Empty input strings list" << endl;
+  else {
+    // Used to properly align the list
+    size_t list_size_number_of_digits = to_string(list.size()).length();
+    for (size_t index = 0; index < list.size(); ++index)
+      cout << setw(list_size_number_of_digits) << index + 1 << ". "
+           << list[index] << endl;
+  }
   cout << endl;
 }
 
@@ -59,15 +63,13 @@ bool Input_Strings::is_element(string value) {
 }
 
 void Input_Strings::write(void) {
-  if (is_changed()) {
-    ofstream input_string_file(file_name);
-    if (!input_string_file)
-      throw Crash("Could not open input string file " + file_name + ".str");
-    // Write every input string in the list to their own line
-    for (const string &input_string : list)
-      input_string_file << input_string << endl;
-    input_string_file.close();
-    cout << "\nInput strings list successfully written to file!" << endl;
-    changed = false;
-  }
+  ofstream input_string_file(file_name);
+  if (!input_string_file)
+    throw Crash("Could not open input string file " + file_name + ".str");
+  // Write every input string in the list to their own line
+  for (const string &input_string : list)
+    input_string_file << input_string << endl;
+  input_string_file.close();
+  cout << "\nInput strings list successfully written to file!" << endl;
+  changed = false;
 }

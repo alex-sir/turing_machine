@@ -7,7 +7,6 @@
 #ifndef WHITESPACE_H
 #define WHITESPACE_H
 
-#include <algorithm>
 #include <cctype>
 #include <iostream>
 #include <string>
