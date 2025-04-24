@@ -22,10 +22,10 @@ void Input_Strings::insert(string input_string) {
 }
 
 void Input_Strings::view(void) {
-  cout << endl;
   if (list.size() == 0)
-    cout << "Notice: Empty input strings list" << endl;
+    cout << "Empty input strings list" << endl;
   else {
+    cout << endl;
     // Used to properly align the list
     size_t list_size_number_of_digits = to_string(list.size()).length();
     for (size_t index = 0; index < list.size(); ++index)
@@ -70,6 +70,6 @@ void Input_Strings::write(void) {
   for (const string &input_string : list)
     input_string_file << input_string << endl;
   input_string_file.close();
-  cout << "\nInput strings list successfully written to file!" << endl;
+  cout << "Input strings list successfully written to file!" << endl;
   changed = false;
 }

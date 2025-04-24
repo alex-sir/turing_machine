@@ -16,7 +16,7 @@ using namespace std;
 
 /* TODO:
  * help (DONE)
- * show
+ * show (DONE)
  * view (DONE)
  * list (DONE)
  * insert (DONE)
@@ -24,15 +24,16 @@ using namespace std;
  * set (DONE)
  * truncate (DONE)
  * run
- * quit
+ * quit (DONE)
  * exit (DONE)
  */
 
-Commands::Commands(string file_name)
-    : turing_machine(file_name), input_strings(file_name) {
-  ifstream input_string_file(file_name + ".str");
+Commands::Commands(string new_file_name)
+    : turing_machine(new_file_name), input_strings(new_file_name),
+      file_name(new_file_name) {
+  ifstream input_string_file(new_file_name + ".str");
   if (!input_string_file)
-    throw Crash("Could not open input string file " + file_name + ".str");
+    throw Crash("Could not open input string file " + new_file_name + ".str");
 
   string value = "";
   bool not_duplicate = true;
@@ -100,13 +101,45 @@ void Commands::show(void) {
        << "Year: 2025\n"
        << "Instructor: Neil Corrigan\n"
        << "Author: Alex Carbajal\n"
-       << "Version: 0.0\n"
-       << "Maximum Number of Transitions: 1\n"
-       << "Maximum Instantaneous Description Cells: 32\n"
-       << "Turing Machine Name: anbn\n"
-       << "Turing Machine Status: Has not been run during session\n"
-       << "Input Strings List Status: Modified\n"
-       << endl;
+       << "Version: 1.0\n"
+       << "Maximum Number of Transitions: "
+       << configuration_settings.maximum_number_of_transitions()
+       << "\nMaximum Instantaneous Description Cells: "
+       << configuration_settings.maximum_number_of_cells()
+       << "\nTuring Machine Name: " << file_name;
+
+  /* Three statuses possible for the Turing machine
+   * 1. Has not been run on an input string during the session
+   * 2. Is currently running on an input string
+   * 3. Has completed operation on an input string during the session
+   */
+  cout << "\nTuring Machine Status: ";
+  if (!turing_machine.is_used())
+    cout << "Has not been run during session\n";
+  else if (turing_machine.is_operating()) {
+    cout << "Currently running\n\tInput string "
+         << turing_machine.input_string() << "\n\t"
+         << turing_machine.total_number_of_transitions()
+         << " transitions peformed\n";
+  } else if (turing_machine.is_used()) {
+    cout << "Completed operation\n\tInput string "
+         << turing_machine.input_string() << "\n\t";
+    if (turing_machine.is_accepted_input_string())
+      cout << "Accepted\n\t";
+    else if (turing_machine.is_rejected_input_string())
+      cout << "Rejected\n\t";
+    else
+      cout << "Quit\n\t";
+    cout << turing_machine.total_number_of_transitions()
+         << " transitions performed\n";
+  }
+
+  // Whether input strings list has been modified during operation
+  cout << "Input Strings List Status: ";
+  if (input_strings.is_changed())
+    cout << "Modified\n" << endl;
+  else
+    cout << "Not Modified\n" << endl;
 }
 
 void Commands::view(void) { turing_machine.view_definition(); }
@@ -248,8 +281,14 @@ void Commands::run(void) {
 }
 
 void Commands::quit(void) {
-  cout << "\nInput string abab is not accepted or rejected in 20 transitions.\n"
-       << endl;
+  if (turing_machine.is_operating()) {
+    turing_machine.terminate_operation();
+    cout << "Input string \"" << turing_machine.input_string()
+         << "\" is not accepted or rejected in "
+         << turing_machine.total_number_of_transitions() << " transitions.\n"
+         << endl;
+  } else
+    cout << "Turing machine is not running\n" << endl;
 }
 
 void Commands::ext(void) {

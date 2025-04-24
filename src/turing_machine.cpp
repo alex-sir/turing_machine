@@ -71,6 +71,8 @@ void Turing_Machine::view_definition() const {
   final_states.view();
 }
 
+void Turing_Machine::terminate_operation() { operating = false; }
+
 string Turing_Machine::input_string() const { return original_input_string; }
 
 int Turing_Machine::total_number_of_transitions() const {

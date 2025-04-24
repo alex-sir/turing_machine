@@ -52,6 +52,9 @@ public:
   void view_instantaneous_description(int maximum_number_of_cells) const;
   void initialize(string input_string);
   void perform_transitions(int maximum_number_of_transitions);
+  /**
+   * @brief Stop operation on the input string that is currently being worked on
+   */
   void terminate_operation();
   /**
    * @brief Return the original input string that is currently being worked on

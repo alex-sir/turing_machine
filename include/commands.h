@@ -22,6 +22,7 @@ private:
   Turing_Machine turing_machine;
   Input_Strings input_strings;
   Configuration_Settings configuration_settings;
+  string file_name;
 
 public:
   /**
@@ -29,7 +30,7 @@ public:
    *        that corresponds to the Turing machine definition file and the input
    *        string file
    */
-  Commands(string file_name);
+  Commands(string new_file_name);
   /**
    * @brief Run the help command 'h', which allows the user to display a help
    *        message containing a list of commands and their descriptions
