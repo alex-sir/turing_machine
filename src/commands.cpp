@@ -79,6 +79,8 @@ void Commands::help(void) {
        << UL << "V" << RM_UL << setw(outw - 1) << left << "iew"
        << "View Turing machine\n"
        << endl;
+  // Reset all stream formatting flags (e.g., "left" & "right")
+  cout.unsetf(ios::adjustfield);
 }
 
 void Commands::show(void) {
@@ -106,7 +108,7 @@ void Commands::show(void) {
     cout << "Currently running\n\tInput string "
          << turing_machine.input_string() << "\n\t"
          << turing_machine.total_number_of_transitions()
-         << " transitions peformed\n";
+         << " transitions performed\n";
   } else if (turing_machine.is_used()) {
     cout << "Completed operation\n\tInput string "
          << turing_machine.input_string() << "\n\t";
@@ -293,15 +295,33 @@ void Commands::run(void) {
           configuration_settings.maximum_number_of_transitions());
       turing_machine.view_instantaneous_description(
           configuration_settings.maximum_number_of_cells());
-      cout << endl;
-    } else
+    } else {
       cout << invalid_input << endl;
+      return;
+    }
   } else {
     turing_machine.perform_transitions(
         configuration_settings.maximum_number_of_transitions());
     turing_machine.view_instantaneous_description(
         configuration_settings.maximum_number_of_cells());
+  }
+
+  bool is_accepted = turing_machine.is_accepted_input_string();
+  bool is_rejected = turing_machine.is_rejected_input_string();
+  if (!is_accepted && !is_rejected)
     cout << endl;
+  else if (is_accepted) {
+    cout << "Input string \"" << turing_machine.input_string()
+         << "\" is accepted in " << turing_machine.total_number_of_transitions()
+         << " transitions.\n"
+         << endl;
+    turing_machine.terminate_operation();
+  } else if (is_rejected) {
+    cout << "Input string \"" << turing_machine.input_string()
+         << "\" is rejected in " << turing_machine.total_number_of_transitions()
+         << " transitions.\n"
+         << endl;
+    turing_machine.terminate_operation();
   }
 }
 

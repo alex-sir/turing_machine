@@ -50,3 +50,11 @@ void Final_States::view(void) const {
   }
   cout << "}" << endl << endl;
 }
+
+bool Final_States::is_element(string value) const {
+  for (const string &name : names) {
+    if (name == value)
+      return true;
+  }
+  return false;
+}

@@ -43,7 +43,7 @@ void Tape::validate(const Input_Alphabet &input_alphabet,
   }
   if (!tape_alphabet.is_element(blank_character)) {
     cout << "Warning: Blank character " << blank_character
-         << "is not in tape alphabet" << endl;
+         << " is not in tape alphabet" << endl;
     valid = false;
   }
 }

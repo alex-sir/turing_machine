@@ -36,6 +36,11 @@ void States::load(ifstream &definition, bool &valid) {
     cout << "Warning: Missing keyword after states" << endl;
     valid = false;
   }
+  // Empty set is not valid
+  if (names.empty()) {
+    cout << "Warning: Set of states is empty" << endl;
+    valid = false;
+  }
 }
 
 void States::view(void) const {

@@ -27,7 +27,7 @@ void Input_Strings::view(void) {
   else {
     cout << endl;
     // Used to properly align the list
-    size_t list_size_number_of_digits = to_string(list.size()).length();
+    int list_size_number_of_digits = to_string(list.size()).length();
     for (size_t index = 0; index < list.size(); ++index)
       cout << setw(list_size_number_of_digits) << index + 1 << ". "
            << list[index] << endl;

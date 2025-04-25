@@ -40,6 +40,14 @@ public:
    * @brief Display the set of final states of the Turing machine
    */
   void view(void) const override;
+  /**
+   * @brief Check if a value is an element in the set of final states
+   *
+   * @param value String of the value to check
+   * @return bool true if the value is in the set of final states
+   *              false if the value is not in the set of final states
+   */
+  bool is_element(string value) const override;
 };
 
 #endif

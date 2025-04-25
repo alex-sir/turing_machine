@@ -30,14 +30,13 @@ public:
    */
   virtual void view(void) const;
   /**
-   * @brief Check if a value is a duplicate in the set of states
+   * @brief Check if a value is an element in the set of states
    *
-   * @param value String of the value to check for duplicity in the set of
-   *              states
-   * @return bool true if the value is a duplicate
-   *              false if the value is not a duplicate
+   * @param value String of the value to check
+   * @return bool true if the value is in the set of states
+   *              false if the value is not in the set of states
    */
-  bool is_element(string value) const;
+  virtual bool is_element(string value) const;
 };
 
 #endif

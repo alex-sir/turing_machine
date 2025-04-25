@@ -37,6 +37,11 @@ void Tape_Alphabet::load(ifstream &definition, bool &valid) {
     cout << "Warning: Missing keyword after tape alphabet" << endl;
     valid = false;
   }
+  // Empty tape alphabet is not valid
+  if (alphabet.empty()) {
+    cout << "Warning: Tape alphabet is empty" << endl;
+    valid = false;
+  }
 }
 
 void Tape_Alphabet::view(void) const {

@@ -36,9 +36,18 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   transition_function.load(definition, valid);
   // Initial state
   definition >> initial_state;
-  definition >> value;
-  if (value != "BLANK_CHARACTER:") {
-    cout << "Warning: Missing keyword after initial state" << endl;
+  if (initial_state != "BLANK_CHARACTER:") {
+    definition >> value;
+    if (value != "BLANK_CHARACTER:") {
+      cout << "Warning: Missing keyword after initial state" << endl;
+      valid = false;
+    }
+  } else {
+    cout << "Warning: Initial state is empty" << endl;
+    valid = false;
+  }
+  if (!states.is_element(initial_state)) {
+    cout << "Warning: Initial state is not in set of states" << endl;
     valid = false;
   }
   // Blank character
@@ -47,7 +56,6 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   definition.close();
   // Check that the Turing machine definition file is fully valid
   valid = is_valid_definition();
-
   if (!valid)
     throw Crash("Invalid Turing machine definition file");
 
@@ -76,6 +84,8 @@ void Turing_Machine::view_definition() const {
 
 void Turing_Machine::view_instantaneous_description(
     int maximum_number_of_cells) const {
+  if (final_states.is_element(current_state)) {
+  }
   cout << number_of_transitions << "." << tape.left(maximum_number_of_cells)
        << "[" << current_state << "]" << tape.right(maximum_number_of_cells)
        << endl;
@@ -93,6 +103,12 @@ void Turing_Machine::initialize(string input_string) {
 }
 
 void Turing_Machine::perform_transitions(int maximum_number_of_transitions) {
+  // Case where initial state is also final state
+  if (final_states.is_element(current_state)) {
+    accepted = true;
+    return;
+  }
+
   string destination_state = "";
   char write_character = '\0';
   direction move_direction = '\0';
@@ -102,12 +118,20 @@ void Turing_Machine::perform_transitions(int maximum_number_of_transitions) {
     transition_function.find_transition(current_state, tape.current_character(),
                                         destination_state, write_character,
                                         move_direction, found);
+    // Update the tape if a transition function was found
+    // Otherwise, reject the input string
     if (found) {
       tape.update(write_character, move_direction);
       current_state = destination_state;
       ++number_of_transitions;
     } else {
-      // reject input string?
+      rejected = true;
+      return;
+    }
+    // Final state found, input string accepted
+    if (final_states.is_element(current_state)) {
+      accepted = true;
+      return;
     }
   }
 }
