@@ -50,6 +50,9 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
 
   if (!valid)
     throw Crash("Invalid Turing machine definition file");
+
+  used = false;
+  operating = false;
 }
 
 void Turing_Machine::view_definition() const {
@@ -69,6 +72,44 @@ void Turing_Machine::view_definition() const {
   cout << "q0 = " << initial_state << endl << endl;
   tape.view();
   final_states.view();
+}
+
+void Turing_Machine::view_instantaneous_description(
+    int maximum_number_of_cells) const {
+  cout << number_of_transitions << "." << tape.left(maximum_number_of_cells)
+       << "[" << current_state << "]" << tape.right(maximum_number_of_cells)
+       << endl;
+}
+
+void Turing_Machine::initialize(string input_string) {
+  current_state = initial_state;
+  original_input_string = input_string;
+  number_of_transitions = 0;
+  used = true;
+  operating = true;
+  accepted = false;
+  rejected = false;
+  tape.initialize(input_string);
+}
+
+void Turing_Machine::perform_transitions(int maximum_number_of_transitions) {
+  string destination_state = "";
+  char write_character = '\0';
+  direction move_direction = '\0';
+  bool found = false;
+  for (int transition = 0; transition < maximum_number_of_transitions;
+       ++transition) {
+    transition_function.find_transition(current_state, tape.current_character(),
+                                        destination_state, write_character,
+                                        move_direction, found);
+    if (found) {
+      tape.update(write_character, move_direction);
+      current_state = destination_state;
+      ++number_of_transitions;
+    } else {
+      // reject input string?
+    }
+  }
 }
 
 void Turing_Machine::terminate_operation() { operating = false; }

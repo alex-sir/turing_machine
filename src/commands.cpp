@@ -14,26 +14,12 @@
 #include <string>
 using namespace std;
 
-/* TODO:
- * help (DONE)
- * show (DONE)
- * view (DONE)
- * list (DONE)
- * insert (DONE)
- * del (DONE)
- * set (DONE)
- * truncate (DONE)
- * run
- * quit (DONE)
- * exit (DONE)
- */
-
 Commands::Commands(string new_file_name)
     : turing_machine(new_file_name), input_strings(new_file_name),
       file_name(new_file_name) {
-  ifstream input_string_file(new_file_name + ".str");
+  ifstream input_string_file(file_name + ".str");
   if (!input_string_file)
-    throw Crash("Could not open input string file " + new_file_name + ".str");
+    throw Crash("Could not open input string file " + file_name + ".str");
 
   string value = "";
   bool not_duplicate = true;
@@ -273,11 +259,50 @@ void Commands::truncate(void) {
 }
 
 void Commands::run(void) {
-  cout << "\nInput String Number: 2\n"
-       << "0.[s0]aabb\n"
-       << "20.XY[s4]XY\n"
-       << "Input string aabb is accepted in 20 transitions.\n"
-       << endl;
+  if (!turing_machine.is_operating()) {
+    string invalid_input = "Invalid input - no input string was run\n";
+    string value = "";
+    cout << "\nInput String Number: ";
+    getline(cin, value);
+    trim_whitespace(value);
+
+    // Don't run for empty input
+    if (value.empty() || is_all_whitespace(value)) {
+      cout << endl;
+      return;
+    }
+
+    // Check that the user entered an integer
+    for (const char ch : value) {
+      if (!isdigit(ch)) {
+        cout << invalid_input << endl;
+        return;
+      }
+    }
+
+    int input_string_number = stoi(value);
+    // Number must exist in the list
+    if (input_string_number > 0 &&
+        input_string_number <= input_strings.size() &&
+        input_strings.size() != 0) {
+      turing_machine.initialize(
+          input_strings.input_string(input_string_number - 1));
+      turing_machine.view_instantaneous_description(
+          configuration_settings.maximum_number_of_cells());
+      turing_machine.perform_transitions(
+          configuration_settings.maximum_number_of_transitions());
+      turing_machine.view_instantaneous_description(
+          configuration_settings.maximum_number_of_cells());
+      cout << endl;
+    } else
+      cout << invalid_input << endl;
+  } else {
+    turing_machine.perform_transitions(
+        configuration_settings.maximum_number_of_transitions());
+    turing_machine.view_instantaneous_description(
+        configuration_settings.maximum_number_of_cells());
+    cout << endl;
+  }
 }
 
 void Commands::quit(void) {

@@ -49,8 +49,27 @@ public:
    * @brief Display the definition of the Turing machine in a readable form
    */
   void view_definition() const;
+  /**
+   * @brief Display the current instantaneous description that is performed on
+   *        an input string
+   *
+   * @param maximum_number_of_cells Maximum number of cells to display to the
+   *                                left and right of the current cell in the
+   *                                tape
+   */
   void view_instantaneous_description(int maximum_number_of_cells) const;
+  /**
+   * @brief Set an input string ready for operations
+   *
+   * @param input_string Input string to set ready
+   */
   void initialize(string input_string);
+  /**
+   * @brief Execute a number of transitions on an input string
+   *
+   * @param maximum_number_of_transitions Maximum number of transitions to
+   *                                      perform on the input string
+   */
   void perform_transitions(int maximum_number_of_transitions);
   /**
    * @brief Stop operation on the input string that is currently being worked on
