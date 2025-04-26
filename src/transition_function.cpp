@@ -100,7 +100,8 @@ void Transition_Function::view() const {
          << transitions[index].write_character() << ", "
          << transitions[index].move_direction() << ")" << endl;
   }
-  cout << endl;
+  if (transitions.size() != 0)
+    cout << endl;
 }
 
 void Transition_Function::find_transition(

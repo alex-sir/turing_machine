@@ -71,7 +71,8 @@ void Turing_Machine::view_definition() const {
     if (word != description.size() - 1)
       cout << " ";
   }
-  cout << endl << endl;
+  if (description.size() != 0)
+    cout << endl << endl;
   // Keywords
   states.view();
   input_alphabet.view();
