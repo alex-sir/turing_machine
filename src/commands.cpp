@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 using namespace std;
 
@@ -183,17 +184,23 @@ void Commands::del(void) {
     }
   }
 
-  int input_string_number = stoi(value);
-  // Number must exist in the list
-  if (input_string_number > 0 && input_string_number <= input_strings.size() &&
-      input_strings.size() != 0) {
-    cout << "Input string \""
-         << input_strings.input_string(input_string_number - 1)
-         << "\" successfully deleted from list!\n"
-         << endl;
-    input_strings.remove(input_string_number - 1);
-  } else
+  // Catch out of range errors from extremely large values
+  try {
+    int input_string_number = stoi(value);
+    // Number must exist in the list
+    if (input_string_number > 0 &&
+        input_string_number <= input_strings.size() &&
+        input_strings.size() != 0) {
+      cout << "Input string \""
+           << input_strings.input_string(input_string_number - 1)
+           << "\" successfully deleted from list!\n"
+           << endl;
+      input_strings.remove(input_string_number - 1);
+    } else
+      cout << invalid_input << endl;
+  } catch (const out_of_range &) {
     cout << invalid_input << endl;
+  }
 }
 
 void Commands::set(void) {
@@ -218,14 +225,19 @@ void Commands::set(void) {
     }
   }
 
-  int number_of_transitions = stoi(value);
-  // Only positive integers accepted
-  if (number_of_transitions > 0) {
-    configuration_settings.set_number_of_transitions(number_of_transitions);
-    cout << "Value successfully changed to " << number_of_transitions << "!\n"
-         << endl;
-  } else
+  // Catch out of range errors from extremely large values
+  try {
+    int number_of_transitions = stoi(value);
+    // Only positive integers accepted
+    if (number_of_transitions > 0) {
+      configuration_settings.set_number_of_transitions(number_of_transitions);
+      cout << "Value successfully changed to " << number_of_transitions << "!\n"
+           << endl;
+    } else
+      cout << invalid_input << endl;
+  } catch (const out_of_range &) {
     cout << invalid_input << endl;
+  }
 }
 
 void Commands::truncate(void) {
@@ -250,14 +262,19 @@ void Commands::truncate(void) {
     }
   }
 
-  int number_of_cells = stoi(value);
-  // Only positive integers accepted
-  if (number_of_cells > 0) {
-    configuration_settings.set_number_of_cells(number_of_cells);
-    cout << "Value successfully changed to " << number_of_cells << "!\n"
-         << endl;
-  } else
+  // Catch out of range errors from extremely large values
+  try {
+    int number_of_cells = stoi(value);
+    // Only positive integers accepted
+    if (number_of_cells > 0) {
+      configuration_settings.set_number_of_cells(number_of_cells);
+      cout << "Value successfully changed to " << number_of_cells << "!\n"
+           << endl;
+    } else
+      cout << invalid_input << endl;
+  } catch (const out_of_range &) {
     cout << invalid_input << endl;
+  }
 }
 
 void Commands::run(void) {
@@ -282,20 +299,26 @@ void Commands::run(void) {
       }
     }
 
-    int input_string_number = stoi(value);
-    // Number must exist in the list
-    if (input_string_number > 0 &&
-        input_string_number <= input_strings.size() &&
-        input_strings.size() != 0) {
-      turing_machine.initialize(
-          input_strings.input_string(input_string_number - 1));
-      turing_machine.view_instantaneous_description(
-          configuration_settings.maximum_number_of_cells());
-      turing_machine.perform_transitions(
-          configuration_settings.maximum_number_of_transitions());
-      turing_machine.view_instantaneous_description(
-          configuration_settings.maximum_number_of_cells());
-    } else {
+    // Catch out of range errors from extremely large values
+    try {
+      int input_string_number = stoi(value);
+      // Number must exist in the list
+      if (input_string_number > 0 &&
+          input_string_number <= input_strings.size() &&
+          input_strings.size() != 0) {
+        turing_machine.initialize(
+            input_strings.input_string(input_string_number - 1));
+        turing_machine.view_instantaneous_description(
+            configuration_settings.maximum_number_of_cells());
+        turing_machine.perform_transitions(
+            configuration_settings.maximum_number_of_transitions());
+        turing_machine.view_instantaneous_description(
+            configuration_settings.maximum_number_of_cells());
+      } else {
+        cout << invalid_input << endl;
+        return;
+      }
+    } catch (const out_of_range &) {
       cout << invalid_input << endl;
       return;
     }
