@@ -25,7 +25,7 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   // Description
   while ((definition >> value) && (uppercase(value) != "STATES:"))
     description.push_back(value);
-  if (value != "STATES:") {
+  if (uppercase(value) != "STATES:") {
     cout << "Warning: Missing keyword after description" << endl;
     valid = false;
   }
@@ -36,9 +36,9 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   transition_function.load(definition, valid);
   // Initial state
   definition >> initial_state;
-  if (initial_state != "BLANK_CHARACTER:") {
+  if (uppercase(initial_state) != "BLANK_CHARACTER:") {
     definition >> value;
-    if (value != "BLANK_CHARACTER:") {
+    if (uppercase(value) != "BLANK_CHARACTER:") {
       cout << "Warning: Missing keyword after initial state" << endl;
       valid = false;
     }

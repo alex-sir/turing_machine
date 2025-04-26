@@ -105,13 +105,13 @@ void Commands::show(void) {
   if (!turing_machine.is_used())
     cout << "Has not been run during session\n";
   else if (turing_machine.is_operating()) {
-    cout << "Currently running\n\tInput string "
-         << turing_machine.input_string() << "\n\t"
+    cout << "Currently running\n\tInput string \""
+         << turing_machine.input_string() << "\"\n\t"
          << turing_machine.total_number_of_transitions()
          << " transitions performed\n";
   } else if (turing_machine.is_used()) {
-    cout << "Completed operation\n\tInput string "
-         << turing_machine.input_string() << "\n\t";
+    cout << "Completed operation\n\tInput string \""
+         << turing_machine.input_string() << "\"\n\t";
     if (turing_machine.is_accepted_input_string())
       cout << "Accepted\n\t";
     else if (turing_machine.is_rejected_input_string())
