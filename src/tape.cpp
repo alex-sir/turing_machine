@@ -25,7 +25,7 @@ void Tape::load(ifstream &definition, bool &valid) {
       (value[0] != '>') && (value[0] >= '!') && (value[0] <= '~'))
     blank_character = value[0];
   else {
-    cout << "Warning: Illegal blank character" << endl;
+    cout << "Warning: Illegal blank character '" << value << "'" << endl;
     valid = false;
   }
   if ((!(definition >> value)) || (uppercase(value) != "FINAL_STATES:")) {
@@ -37,13 +37,13 @@ void Tape::load(ifstream &definition, bool &valid) {
 void Tape::validate(const Input_Alphabet &input_alphabet,
                     const Tape_Alphabet &tape_alphabet, bool &valid) const {
   if (input_alphabet.is_element(blank_character)) {
-    cout << "Warning: Blank character " << blank_character
-         << " is in input alphabet" << endl;
+    cout << "Warning: Blank character '" << blank_character
+         << "' is in input alphabet" << endl;
     valid = false;
   }
   if (!tape_alphabet.is_element(blank_character)) {
-    cout << "Warning: Blank character " << blank_character
-         << " is not in tape alphabet" << endl;
+    cout << "Warning: Blank character '" << blank_character
+         << "' is not in tape alphabet" << endl;
     valid = false;
   }
 }

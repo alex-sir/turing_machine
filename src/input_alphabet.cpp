@@ -25,11 +25,12 @@ void Input_Alphabet::load(ifstream &definition, bool &valid) {
       if (!is_element(value[0]))
         alphabet.push_back(value[0]);
       else {
-        cout << "Warning: Duplicate input alphabet value" << endl;
+        cout << "Warning: Duplicate input alphabet value '" << value << "'"
+             << endl;
         valid = false;
       }
     } else {
-      cout << "Warning: Illegal input alphabet value" << endl;
+      cout << "Warning: Illegal input alphabet value '" << value << "'" << endl;
       valid = false;
     }
   }
@@ -43,7 +44,8 @@ void Input_Alphabet::validate(const Tape_Alphabet &tape_alphabet,
                               bool &valid) const {
   for (const char &current_value : alphabet) {
     if (!tape_alphabet.is_element(current_value)) {
-      cout << "Warning: Value in input alphabet not in tape alphabet" << endl;
+      cout << "Warning: Value '" << current_value
+           << "' in input alphabet not in tape alphabet" << endl;
       valid = false;
     }
   }

@@ -25,11 +25,12 @@ void Tape_Alphabet::load(ifstream &definition, bool &valid) {
       if (!is_element(value[0]))
         alphabet.push_back(value[0]);
       else {
-        cout << "Warning: Duplicate tape alphabet value" << endl;
+        cout << "Warning: Duplicate tape alphabet value '" << value << "'"
+             << endl;
         valid = false;
       }
     } else {
-      cout << "Warning: Illegal tape alphabet value" << endl;
+      cout << "Warning: Illegal tape alphabet value '" << value << "'" << endl;
       valid = false;
     }
   }

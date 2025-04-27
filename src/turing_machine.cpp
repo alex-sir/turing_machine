@@ -178,7 +178,8 @@ bool Turing_Machine::is_valid_input_string(string value) const {
    */
   if (value.empty() || is_all_whitespace(value) || isspace(value.front()) ||
       isspace(value.back())) {
-    cout << "Warning: Input string is empty or contains leading/trailing "
+    cout << "Warning: Input string \"" << value
+         << "\" is empty or contains leading/trailing "
             "whitespace"
          << endl;
     valid = false;
@@ -187,8 +188,8 @@ bool Turing_Machine::is_valid_input_string(string value) const {
   // String is invalid if it contains characters not in the input alphabet
   for (char ch : value) {
     if (!input_alphabet.is_element(ch) && !isspace(ch)) {
-      cout << "Warning: Input string contains character not in input alphabet"
-           << endl;
+      cout << "Warning: Input string \"" << value << "\" contains character '"
+           << ch << "' not in input alphabet" << endl;
       valid = false;
       break;
     }

@@ -65,7 +65,7 @@ bool Input_Strings::is_element(string value) {
 void Input_Strings::write(void) {
   ofstream input_string_file(file_name);
   if (!input_string_file)
-    throw Crash("Could not open input string file " + file_name + ".str");
+    throw Crash("Could not open input string file " + file_name);
   // Write every input string in the list to their own line
   for (const string &input_string : list)
     input_string_file << input_string << endl;

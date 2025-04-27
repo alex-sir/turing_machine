@@ -19,7 +19,7 @@ void States::load(ifstream &definition, bool &valid) {
       // State must be upper & lower case letters, digits, underscores, &
       // hyphens
       if (!isalnum(ch) && ch != '_' && ch != '-') {
-        cout << "Warning: Illegal state" << endl;
+        cout << "Warning: Illegal state \"" << value << "\"" << endl;
         valid = false;
       }
     }
@@ -27,7 +27,7 @@ void States::load(ifstream &definition, bool &valid) {
     if (!is_element(value))
       names.push_back(value);
     else {
-      cout << "Warning: Duplicate state" << endl;
+      cout << "Warning: Duplicate state \"" << value << "\"" << endl;
       valid = false;
     }
   }

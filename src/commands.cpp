@@ -32,7 +32,7 @@ Commands::Commands(string new_file_name)
    */
   while (getline(input_string_file, value)) {
     if (input_strings.is_element(value)) {
-      cout << "Warning: Input string is duplicate" << endl;
+      cout << "Warning: Input string \"" << value << "\" is duplicate" << endl;
       not_duplicate = false;
     }
     if (not_duplicate && turing_machine.is_valid_input_string(value))

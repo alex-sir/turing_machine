@@ -18,7 +18,7 @@ void Final_States::load(ifstream &definition, bool &valid) {
       // Final states must be upper & lower case letters, digits, underscores, &
       // hyphens
       if (!isalnum(ch) && ch != '_' && ch != '-') {
-        cout << "Warning: Illegal final state" << endl;
+        cout << "Warning: Illegal final state \"" << value << "\"" << endl;
         valid = false;
       }
     }
@@ -26,7 +26,7 @@ void Final_States::load(ifstream &definition, bool &valid) {
     if (!is_element(value))
       names.push_back(value);
     else {
-      cout << "Warning: Duplicate final state" << endl;
+      cout << "Warning: Duplicate final state \"" << value << "\"" << endl;
       valid = false;
     }
   }
@@ -35,7 +35,8 @@ void Final_States::load(ifstream &definition, bool &valid) {
 void Final_States::validate(const States &states, bool &valid) const {
   for (const string &name : names) {
     if (!states.is_element(name)) {
-      cout << "Warning: Value in final states not in states" << endl;
+      cout << "Warning: Value \"" << name << "\" in final states not in states"
+           << endl;
       valid = false;
     }
   }
