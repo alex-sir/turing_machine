@@ -23,6 +23,7 @@ private:
   Input_Strings input_strings;
   Configuration_Settings configuration_settings;
   string file_name;
+  string turing_machine_name;
 
 public:
   /**

@@ -19,7 +19,12 @@ int main(int argc, char *argv[]) {
 
   try {
     Commands commands(argv[1]);
-    cout << argv[1] << " successfully loaded!\n" << endl;
+    string turing_machine_name = argv[1];
+    size_t forward_slash_position = turing_machine_name.find_last_of('/');
+    if (forward_slash_position != string::npos)
+      turing_machine_name =
+          turing_machine_name.substr(forward_slash_position + 1);
+    cout << turing_machine_name << " successfully loaded!\n" << endl;
     string command = "";
     bool valid_command = false;
     bool exit = false;

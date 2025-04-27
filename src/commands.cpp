@@ -17,7 +17,7 @@ using namespace std;
 
 Commands::Commands(string new_file_name)
     : turing_machine(new_file_name), input_strings(new_file_name),
-      file_name(new_file_name) {
+      file_name(new_file_name), turing_machine_name(new_file_name) {
   ifstream input_string_file(file_name + ".str");
   if (!input_string_file)
     throw Crash("Could not open input string file " + file_name + ".str");
@@ -50,6 +50,13 @@ Commands::Commands(string new_file_name)
   if (!string_was_discarded)
     input_strings.set_changed(false);
   input_string_file.close();
+
+  // Truncate the path to the files to make the Turing machine name, only
+  // keeping the file name
+  size_t forward_slash_position = turing_machine_name.find_last_of('/');
+  if (forward_slash_position != string::npos)
+    turing_machine_name =
+        turing_machine_name.substr(forward_slash_position + 1);
 }
 
 void Commands::help(void) {
@@ -95,7 +102,7 @@ void Commands::show(void) {
        << configuration_settings.maximum_number_of_transitions()
        << "\nMaximum Instantaneous Description Cells: "
        << configuration_settings.maximum_number_of_cells()
-       << "\nTuring Machine Name: " << file_name;
+       << "\nTuring Machine Name: " << turing_machine_name;
 
   /* Three statuses possible for the Turing machine
    * 1. Has not been run on an input string during the session

@@ -54,10 +54,14 @@ Turing_Machine::Turing_Machine(string definition_file_name) {
   tape.load(definition, valid);
   final_states.load(definition, valid);
   definition.close();
+
+  string invalid = "Invalid Turing machine definition file";
+  if (!valid)
+    throw Crash(invalid);
   // Check that the Turing machine definition file is fully valid
   valid = is_valid_definition();
   if (!valid)
-    throw Crash("Invalid Turing machine definition file");
+    throw Crash(invalid);
 
   used = false;
   operating = false;
@@ -119,13 +123,20 @@ void Turing_Machine::perform_transitions(int maximum_number_of_transitions) {
     transition_function.find_transition(current_state, tape.current_character(),
                                         destination_state, write_character,
                                         move_direction, found);
-    // Update the tape if a transition function was found
-    // Otherwise, reject the input string
-    if (found) {
-      tape.update(write_character, move_direction);
-      current_state = destination_state;
-      ++number_of_transitions;
-    } else {
+    // Check for a left move from the first cell (invalid)
+    try {
+      // Update the tape if a transition function was found
+      // Otherwise, reject the input string
+      if (found) {
+        tape.update(write_character, move_direction);
+        current_state = destination_state;
+        ++number_of_transitions;
+      } else {
+        rejected = true;
+        return;
+      }
+    } catch (const Crash &error) {
+      cout << "Error: " << error.what() << endl;
       rejected = true;
       return;
     }
