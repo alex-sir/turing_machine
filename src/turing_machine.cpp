@@ -187,7 +187,7 @@ bool Turing_Machine::is_valid_input_string(string value) const {
 
   // String is invalid if it contains characters not in the input alphabet
   for (char ch : value) {
-    if (!input_alphabet.is_element(ch) && !isspace(ch)) {
+    if (!input_alphabet.is_element(ch)) {
       cout << "Warning: Input string \"" << value << "\" contains character '"
            << ch << "' not in input alphabet" << endl;
       valid = false;
